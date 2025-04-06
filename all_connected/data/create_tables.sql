@@ -1,84 +1,67 @@
-/*
-Author: Amelia Zhang, based on work from Amy Fung & Cynthia Wang & Sofia Kobayashi & Helen Mao
-Date: 03/28/2025
-Description: Updated to store all timestamps as Unix timestamps (integers)
-*/
+DROP DATABASE IF EXISTS `lexi_db`;
+CREATE DATABASE `lexi_db`;
 
-DROP DATABASE IF EXISTS `snackngo_db`;
-CREATE DATABASE `snackngo_db`;
+USE `lexi_db`;
 
-USE `snackngo_db`;
-
+DROP TABLE IF EXISTS `responses`;
 DROP TABLE IF EXISTS `users`;
-DROP TABLE IF EXISTS `orders`;
 
 CREATE TABLE IF NOT EXISTS users (
     id VARCHAR(50) PRIMARY KEY, -- randomly generated
     username VARCHAR(50),
     email VARCHAR(50),
-    status ENUM('active', 'inactive') DEFAULT 'active',
-    compensation_category ENUM('staged_raffle', 'submission_count'),
-    user_number INT AUTO_INCREMENT UNIQUE -- for odd/even determination
+    status ENUM('active', 'inactive') DEFAULT 'active'
 )
 ENGINE = InnoDB;
 
-DELIMITER //
-CREATE TRIGGER set_comp_category
-BEFORE INSERT ON users
-FOR EACH ROW
-BEGIN
-    DECLARE next_num INT;
-    
-    -- Get the next auto-increment value
-    SELECT AUTO_INCREMENT INTO next_num
-    FROM information_schema.TABLES
-    WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users';
-    
-    -- Set category based on odd/even
-    SET NEW.compensation_category = IF(next_num % 2 = 1, 'staged_raffle', 'submission_count');
-END//
-DELIMITER ;
-
-CREATE TABLE IF NOT EXISTS orders (
-    -- Order info
-    order_id INT AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS responses (
+    -- response info
+    response_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(50),
-    channel_id VARCHAR(50), -- current timestamp. one order is associated with one channel
-    app_used VARCHAR(20),
-    channel_creation_time INT,
-    channel_completion_time INT,
-    status ENUM(
-        'awaiting_app_selection',
-        'awaiting_initial_screenshot',
-        'verifying_initial_data',
-        'awaiting_completion_screenshot',
-        'verifying_completion_data',
-        'collecting_missing_info', 
-        'completed', 
-        'rejected'
-    ) DEFAULT 'awaiting_app_selection',
+    channel_id VARCHAR(50),
 
-    -- Restaurant info
-    restaurant_name VARCHAR(100),
-    is_restaurant_name_verified BOOLEAN DEFAULT FALSE,
-    restaurant_address VARCHAR(100), 
-    is_restaurant_address_verified BOOLEAN DEFAULT FALSE, 
+    general_area ENUM(
+        'The Quint (Beebe, Cazenove, Pomeroy, Shafer, Munger)', 
+        'East Side (Bates, Freeman, McAfee)', 
+        'Stone Davis', 
+        'Tower Court (East, West, Claflin, Severance)', 
+        'Academic Quad (Green, Founders, PNE/PNW, Jewett)', 
+        'Science Center', 
+        'Modular Units', 
+        'Lulu Chow Wang Campus Center', 
+        'Keohane Sports Center (KSC)', 
+        'Acorns', 
+        'Billings', 
+        'Harambee House', 
+        'Slater House', 
+        'Lake House', 
+        'On the Local Motion', 
+        'Bus stops (Chapel, Lulu, Founders)', 
+        'Shakespeare Houses', 
+        'TZE House', 
+        'ZA House', 
+        'French House', 
+        'Casa Cervantes', 
+        'Others'
+    ),
+    loco_time TIMESTAMP, 
+    general_area_others VARCHAR(255),
 
-    -- Time in Unix timestamps
-    order_placement_time INT,
-    is_order_placement_time_verified BOOLEAN DEFAULT FALSE,
-    earliest_estimated_arrival_time INT,
-    is_earliest_estimated_arrival_time_verified BOOLEAN DEFAULT FALSE,
-    latest_estimated_arrival_time INT,
-    is_latest_estimated_arrival_time_verified BOOLEAN DEFAULT FALSE,
-    order_completion_time INT,
-    is_order_completion_time_verified BOOLEAN DEFAULT FALSE,
+    exact_location TEXT NOT NULL,
 
-    -- Screenshot paths
-    placement_screenshot_path VARCHAR(300),
-    completion_screenshot_path VARCHAR(300),
+    language_heard VARCHAR(100) NOT NULL,
 
-    PRIMARY KEY (order_id),
+    is_speaker BOOLEAN DEFAULT FALSE,
+    heard_in_media BOOLEAN DEFAULT FALSE,
+    family_speaks BOOLEAN DEFAULT FALSE,
+    currently_learning BOOLEAN DEFAULT FALSE,
+    friends_use BOOLEAN DEFAULT FALSE,
+    same_language_family BOOLEAN DEFAULT FALSE,
+    language_familiarity_others BOOLEAN DEFAULT FALSE,
+    language_familiarity_others_description VARCHAR(255),
+
+    submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
     UNIQUE KEY (channel_id), 
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL
 )
