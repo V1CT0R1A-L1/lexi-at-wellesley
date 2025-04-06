@@ -47,9 +47,9 @@ CREATE TABLE IF NOT EXISTS responses (
     loco_time TIMESTAMP, 
     general_area_others VARCHAR(255),
 
-    exact_location TEXT NOT NULL,
+    exact_location TEXT,
 
-    language_heard VARCHAR(100) NOT NULL,
+    language_heard VARCHAR(100),
 
     is_speaker BOOLEAN DEFAULT FALSE,
     heard_in_media BOOLEAN DEFAULT FALSE,

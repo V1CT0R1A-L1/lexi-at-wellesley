@@ -1,48 +1,51 @@
 {
 	"blocks": [
 		{
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "*Welcome to Snack N Go!*\n\nThank you for participating in our research project! Below you can choose to submit a new order or check your account status.\n\nIf you've selected to submit a new order, Slack will automatically create a new private channel for that specific order.\n\n*For order submission instructions, please refer to:*\n<https://docs.google.com/document/d/1JOXu2Qwi_I5X__FwH6g0dlyMh-QxqCFeLo3s5l5ImjI/edit?usp=sharing | order submission instructions document>\nSend `?` or `help` for getting this block message again."
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "If you encounter a bug, typo, or other error at any point in the order submission process or other issues, feel free to fill out this <https://docs.google.com/forms/d/e/1FAIpQLSe7U05qgO7AUrkEcH4brPSnPAsvjgfcE3kEhOrg1b8ZoNPWdA/viewform?usp=sharing | form>!"
-            }
-        }, 
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Feel free to contact BOTH of our team members (so that we can get back to you quicker) via email with any other questions or concerns: Amelia Zhang (az111@wellesley.edu), Victoria Lee (vl111@wellesley.edu)"
-            }
-        },
-        {
-            "type": "actions",
-            "elements": [
-                {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "Let me submit my order!"
-                    },
-                    "action_id": "start_order_submission",
-                    "value": "start_order_submission"
-                },
-                {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "Check my account status"
-                    },
-                    "action_id": "check_account_status",
-                    "value": "check_account_status"
-                }
-            ]
-        }
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Hi there! Thank you so much for your interest in helping me understand language usage on Wellesley’s campus, I’m so excited to learn from you. \n\nIt’s important to me that all your responses are in good faith, and strive to correctly represent the language groups that belong on campus. I would be so sad to misidentify the unique and valuable identities of our student body!"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "All you have to do when helping to collect data for this project is remember *Lexi’s List of Rules!* They are as follows:\n\n1️⃣ *Be kind.* If you wouldn’t say what you type in Slack out loud, don’t hit send.\n2️⃣ *Be honest.* There is no “right” answer—you aren’t being graded! I’d rather you be truthful than make up data.\n3️⃣ *Be brave.* If you’re unsure what language you heard, ask the speaker! It’s a great chance to connect.\n4️⃣ *Be enthusiastic.* The more you engage, the more we can learn together!"
+			}
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Share a language with me",
+						"emoji": true
+					},
+					"action_id": "start_language_report",
+					"style": "primary"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Learn more about me",
+						"emoji": true
+					},
+					"action_id": "learn_more"
+				}
+			]
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"type": "mrkdwn",
+					"text": "💡 Type `?` or `help` anytime to see this message again."
+				}
+			]
+		}
 	]
 }

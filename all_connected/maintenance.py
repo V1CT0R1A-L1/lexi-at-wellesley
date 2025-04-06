@@ -97,5 +97,5 @@ if __name__ == "__main__":
     add_new_users()
     # bot.send_messages('U05B24S3LR1', block = None, text = 'Hello world')
     export_table_to_csv('users', '../users.csv')
-    export_table_to_csv('orders', '../orders.csv')
+    export_table_to_csv('responses', '../responses.csv')
     print("DONE")

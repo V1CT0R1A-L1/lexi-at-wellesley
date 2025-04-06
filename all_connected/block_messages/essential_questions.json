@@ -1,0 +1,364 @@
+{
+    "blocks": [
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": "Language Observation Report", 
+                "emoji": true
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*1. In what general area on campus did you hear the language?*"
+            }
+        },
+        {
+            "type": "actions",
+            "elements": [
+                {
+                    "type": "static_select",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select an area"
+                    },
+                    "options": [
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "The Quint (Beebe, Cazenove, Pomeroy, Shafer, Munger)"
+                            },
+                            "value": "The Quint (Beebe, Cazenove, Pomeroy, Shafer, Munger)"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "East Side (Bates, Freeman, McAfee)"
+                            },
+                            "value": "East Side (Bates, Freeman, McAfee)"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Stone Davis"
+                            },
+                            "value": "Stone Davis"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Tower Court (East, West, Claflin, Severance)"
+                            },
+                            "value": "Tower Court (East, West, Claflin, Severance)"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Academic Quad (Green, Founders, PNE/PNW, Jewett)"
+                            },
+                            "value": "Academic Quad (Green, Founders, PNE/PNW, Jewett)"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Science Center"
+                            },
+                            "value": "Science Center"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Modular Units"
+                            },
+                            "value": "Modular Units"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Lulu Chow Wang Campus Center"
+                            },
+                            "value": "Lulu Chow Wang Campus Center"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Keohane Sports Center (KSC)"
+                            },
+                            "value": "Keohane Sports Center (KSC)"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Acorns"
+                            },
+                            "value": "Acorns"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Billings"
+                            },
+                            "value": "Billings"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Harambee House"
+                            },
+                            "value": "Harambee House"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Slater House"
+                            },
+                            "value": "Slater House"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Lake House"
+                            },
+                            "value": "Lake House"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "On the Local Motion"
+                            },
+                            "value": "On the Local Motion"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Bus stops (Chapel, Lulu, Founders)"
+                            },
+                            "value": "Bus stops (Chapel, Lulu, Founders)"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Shakespeare Houses"
+                            },
+                            "value": "Shakespeare Houses"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "TZE House"
+                            },
+                            "value": "TZE House"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "ZA House"
+                            },
+                            "value": "ZA House"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "French House"
+                            },
+                            "value": "French House"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Casa Cervantes"
+                            },
+                            "value": "Casa Cervantes"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Others"
+                            },
+                            "value": "Others"
+                        }
+                    ],
+                    "action_id": "general_area_select"
+                }
+            ]
+        },
+        {
+            "type": "input",
+            "block_id": "general_area_others_block",
+            "optional": true,
+            "element": {
+                "type": "plain_text_input",
+                "action_id": "general_area_others_input",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "If 'Other', please specify"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "Other area description:"
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*2. Where are you, exactly? Be specific! (i.e. Lulu fireplace, Leaky Beaker, outside in the Quint, etc.)*"
+            }
+        },
+        {
+            "type": "input",
+            "block_id": "exact_location_block",
+            "element": {
+                "type": "plain_text_input",
+                "action_id": "exact_location_input",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Enter exact location"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "Exact location:"
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*3. What language did you hear?*"
+            }
+        },
+        {
+            "type": "input",
+            "block_id": "language_heard_block",
+            "element": {
+                "type": "plain_text_input",
+                "action_id": "language_heard_input",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Enter the language you heard"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "Language heard:"
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*4. How did you determine what language you overheard?* Check all that apply:"
+            }
+        },
+        {
+            "type": "actions",
+            "elements": [
+                {
+                    "type": "checkboxes",
+                    "options": [
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "I am a speaker of this language"
+                            },
+                            "value": "is_speaker"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "I've heard this language online or in media"
+                            },
+                            "value": "heard_in_media"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "My family speaks this language"
+                            },
+                            "value": "family_speaks"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "I'm currently learning this language"
+                            },
+                            "value": "currently_learning"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "My friends use this language"
+                            },
+                            "value": "friends_use"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "I know a language in the same family"
+                            },
+                            "value": "same_language_family"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Other"
+                            },
+                            "value": "other_method"
+                        }
+                    ],
+                    "action_id": "determination_methods_checkboxes"
+                }
+            ]
+        },
+        {
+            "type": "input",
+            "block_id": "language_familiarity_others_block",
+            "optional": true,
+            "element": {
+                "type": "plain_text_input",
+                "action_id": "language_familiarity_others_input",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Please describe"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "If 'Other', please explain:"
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "actions",
+            "elements": [
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Submit Report"
+                    },
+                    "action_id": "submit_essential_questions",
+                    "style": "primary"
+                }
+            ]
+        }
+    ]
+}
