@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS responses (
         'Casa Cervantes', 
         'Others'
     ),
-    loco_time TIMESTAMP, 
     general_area_others VARCHAR(255),
 
     exact_location TEXT,
@@ -60,8 +59,8 @@ CREATE TABLE IF NOT EXISTS responses (
     language_familiarity_others BOOLEAN DEFAULT FALSE,
     language_familiarity_others_description VARCHAR(255),
 
-    submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    
+    submission_time BIGINT DEFAULT (UNIX_TIMESTAMP()),
+
     UNIQUE KEY (channel_id), 
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL
 )

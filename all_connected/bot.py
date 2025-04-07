@@ -127,8 +127,8 @@ def parse_human_time_to_unix(time_str):
 def create_response_record(user_id, channel_id):
     return db_operation(
         """INSERT INTO responses 
-           (user_id, channel_id, submission_time) 
-           VALUES (%s, %s, CURRENT_TIMESTAMP)""",
+           (user_id, channel_id) 
+           VALUES (%s, %s)""",
         (user_id, channel_id)
     )
 
@@ -148,28 +148,34 @@ def handle_file_created_events(body, logger):
 @app.event("message")
 def handle_message(payload, say):
     """Handle text messages and messages with files"""
-    print(json.dumps(payload, indent=2))
+    try:
+        print(json.dumps(payload, indent=2))
 
-    channel_id = payload.get('channel')
-    user_id = payload.get('user')
-    text = payload.get('text', '').strip().lower()
-    subtype = payload.get('subtype')
-    
-    if subtype == "channel_join":
-        print(f"[CHANNEL JOIN] User {user_id} joined channel {channel_id}", datetime.now())
-        return
+        channel_id = payload.get('channel')
+        user_id = payload.get('user')
+        text = payload.get('text', '').strip().lower()
+        subtype = payload.get('subtype')
+        
+        if subtype == "channel_join":
+            print(f"[CHANNEL JOIN] User {user_id} joined channel {channel_id}", datetime.now())
+            return
 
-    if user_id == BOT_ID:
-        return
+        if user_id == BOT_ID:
+            return
 
-    print(f"[USER MESSAGE] Message from {user_id}: {text}", datetime.now())
-    if text in ["help", "?"]:
-        print(f"[HELP REQUEST] User {user_id} requested help", datetime.now())
-        say(text="Here's how I can help you!",
-            blocks=MESSAGE_BLOCKS["main_channel_welcome_message"]['blocks'])
-        return
-    else:
-        say("triggered!")
+        print(f"[USER MESSAGE] Message from {user_id}: {text}", datetime.now())
+        if text in ["help", "?"]:
+            print(f"[HELP REQUEST] User {user_id} requested help", datetime.now())
+            say(text="Here's how I can help you!",
+                blocks=MESSAGE_BLOCKS["main_channel_welcome_message"]['blocks'])
+            return
+        else:
+            say("triggered!")
+    except SlackApiError as e:
+        if e.response['error'] == 'is_archived':
+            print(f"Channel {channel_id} is archived")
+        else:
+            print(f"Error occured in handling message: {e}")
         
 
 @app.action("start_language_report")
@@ -212,7 +218,7 @@ def handle_some_action(ack, body, logger):
     logger.info(body)
 
 @app.action('submit_essential_questions')
-def handle_submit_essential_questions(ack, body, client, logger):
+def handle_submit_essential_questions(ack, body, client):
     try:
         ack()
         
@@ -245,6 +251,7 @@ def handle_submit_essential_questions(ack, body, client, logger):
             "general_area": general_area,
             "exact_location": exact_location,
             "language_heard": language_heard,
+            "submission_time": int(time.time()),
             **method_values
         }
 
@@ -257,29 +264,36 @@ def handle_submit_essential_questions(ack, body, client, logger):
 
         print(f"Updated extracted updates: {updates}")
 
-        # Update database
-        if update_response(channel_id, updates):
-            client.chat_postMessage(
-                channel=channel_id,
-                text="🎉 Thank you for your submission!",
-                blocks=[
-                    {
-                        "type": "section",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": "🎉 *Thank you for your submission!*\nYour language report has been recorded."
+        try:
+            success = update_response(channel_id, updates)
+            if success:
+                client.chat_postMessage(
+                    channel=channel_id,
+                    text="🎉 Thank you for your submission!",
+                    blocks=[
+                        {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "🎉 *Thank you for your submission!*\nYour language report has been recorded."
+                            }
                         }
-                    }
-                ]
-            )
-        else:
+                    ]
+                )
+                return True
+        except Exception as db_error:
+            print(f"Database error: {db_error}")
+            # Handle specific database errors
+            if "Out of range value" in str(db_error):
+                print("Timestamp value out of range - check your submission_time handling")
             client.chat_postMessage(
                 channel=channel_id,
-                text="⚠️ Your submission cannot be stored. Please try again."
+                text="⚠️ There was an issue saving your submission. Please try again."
             )
+            return False
 
     except Exception as e:
-        logger.error(f"Error processing submission: {e}")
+        print(f"Error processing submission: {e}")
         # Send error message to user if channel_id is available
         if 'channel_id' in locals():
             client.chat_postMessage(
@@ -291,9 +305,19 @@ def update_response(channel_id, updates):
     if not updates:
         return False
     
-    set_clause = ", ".join([f"{k} = %s" for k in updates])
+    # Create a copy of updates to avoid modifying the original
+    processed_updates = updates.copy()
+    
+    # Convert boolean values to MySQL-compatible 1/0
+    for key, value in processed_updates.items():
+        if isinstance(value, bool):
+            processed_updates[key] = 1 if value else 0
+    
+    # Build the query
+    set_clause = ", ".join([f"{k} = %s" for k in processed_updates])
     query = f"UPDATE responses SET {set_clause} WHERE channel_id = %s"
-    params = list(updates.values()) + [channel_id]
+    params = list(processed_updates.values()) + [channel_id]
+    
     return db_operation(query, params)
 
 def send_messages(channel_id, block=None, text=None):
