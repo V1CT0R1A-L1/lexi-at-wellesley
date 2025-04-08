@@ -204,6 +204,7 @@ def handle_start_language_report(ack, body, client):
 def ask_essential_question(channel_id):
     client.chat_postMessage(
         channel=channel_id,
+        text="Essential questions", 
         blocks=MESSAGE_BLOCKS['essential_questions']["blocks"]
     )
 
