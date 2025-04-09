@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS responses (
     language_familiarity_others BOOLEAN DEFAULT FALSE,
     language_familiarity_others_description VARCHAR(255),
 
-    submission_time BIGINT DEFAULT (UNIX_TIMESTAMP()),
+    submission_time BIGINT,
 
     UNIQUE KEY (channel_id), 
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL

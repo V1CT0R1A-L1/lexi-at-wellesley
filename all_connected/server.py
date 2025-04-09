@@ -66,10 +66,11 @@ def get_new_responses():
     SELECT r.*, u.username, u.email, u.status 
     FROM responses r
     LEFT JOIN users u ON r.user_id = u.id
+    WHERE r.submission_time IS NOT NULL
     '''
     
     if last_time:
-        query += ' WHERE r.submission_time > %s'
+        query += ' AND r.submission_time > %s'
         result = db_operation(query, [last_time], fetch_all=True)
     else:
         result = db_operation(query, fetch_all=True)
