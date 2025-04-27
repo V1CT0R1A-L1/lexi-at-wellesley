@@ -84,4 +84,4 @@ if __name__ == "__main__":
     if not os.path.exists('latest_query_time.txt'):
         with open('latest_query_time.txt', 'w') as f:
             pass
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

@@ -15,9 +15,9 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from datetime import datetime
 from helper_functions import *
-from gemini import *
 import messenger
 import re
+import time 
 
 ## Load environment variables ##
 env_path = Path(__file__).parent.parent / '.env'
