@@ -1,4 +1,4 @@
-# 🐦 Lexi the Language Bird - Wellesley Campus Reporter  
+# 🐦 Lexi the Language Bird - Wellesley Language Reporter  
 
 <div align="center">
   <img src="Lexi_Design.png" alt="Lexi the Bird" width="200"/>  
@@ -20,9 +20,9 @@ Built with ❤️ by Wellesley students for Wellesley students.
 ⏱️ **Timestamps**: Automatic recording of when languages were heard  
 
 ## 🚀 Getting Started  
-1. Join our Slack workspace  
-2. Say "hi" to @Lexi  
-3. Use `/report` to start documenting languages  
+1. Join our Slack workspace (Wellesley Students only)
+2. Find the Lexi bot 
+3. Follow Lexi's instructions to start documenting languages!
 
 ## 🛠️ Technical Stack  
 - Python 3  
@@ -30,11 +30,9 @@ Built with ❤️ by Wellesley students for Wellesley students.
 - Flask backend  
 - MySQL database  
 
-## 📚 Research Team  
-- Yoolim Kim <ykim6@wellesley.edu>  
-- Catherine Delcourt <cdelcour@wellesley.edu>  
-- Christine Bassem <cbassem@wellesley.edu>  
+## 🪲 Known ~~Bugs~~ Features
+- Self-signed HTTPS certificate
 
 <div align="center">
-  <sub>Lexi is a research project at Wellesley College</sub>  
+  <sub>Lexi is a research project at Wellesley College sponsored by Paulson initiative</sub>  
 </div>
